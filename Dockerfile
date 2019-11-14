@@ -1,8 +1,9 @@
-ARG gcc_version=gcc:4.9
+#ARG initial_image=gcc:4.9
+ARG initial_image=python
 ARG llvm_version_local=llvm-3.8.1
 ARG llvm_version_release=RELEASE_381
 
-FROM $gcc_version
+FROM $initial_image
 RUN apt-get update; exit 0
 RUN apt-get -y install cmake \
   && apt-get -y install python-pip \
