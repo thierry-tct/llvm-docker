@@ -23,3 +23,8 @@ Run Docker container
 ```
 docker run --rm -it thierrytct/llvm /bin/bash
 ```
+
+---
+## Building for upload
+docker build -t llvm:3.4.2 . --build-arg llvm_version_local=llvm-3.4.2 --build-arg llvm_version_release=RELEASE_342
+
