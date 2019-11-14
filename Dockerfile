@@ -1,12 +1,16 @@
-FROM gcc:4.9
+ARG gcc_version=gcc:4.9
+ARG llvm_version_local=llvm-3.8.1
+ARG llvm_version_release=RELEASE_381
+
+FROM $gcc_version
 RUN apt-get update; exit 0
 RUN apt-get -y install cmake \
   && apt-get -y install python-pip \
-  && svn co http://llvm.org/svn/llvm-project/llvm/tags/RELEASE_381/final /tmp/llvm-3.8.1/src \
-  && svn co http://llvm.org/svn/llvm-project/cfe/tags/RELEASE_381/final /tmp/llvm-3.8.1/src/tools/clang \
-  && mkdir /tmp/llvm-3.8.1/build && cd /tmp/llvm-3.8.1/build \
-  && cmake /tmp/llvm-3.8.1/src && make -j4 \
-  && make install && cd - && rm -rf /tmp/llvm-3.8.1 \
+  && svn co http://llvm.org/svn/llvm-project/llvm/tags/$llvm_version_release/final /LLVM/$llvm_version_local/src \
+  && svn co http://llvm.org/svn/llvm-project/cfe/tags/$llvm_version_release/final /LLVM/$llvm_version_local/src/tools/clang \
+  && mkdir /LLVM/$llvm_version_local/build && cd /LLVM/$llvm_version_local/build \
+  && cmake /LLVM/$llvm_version_local/src && make -j2 \
+  && make install && cd - && rm -rf /LLVM/$llvm_version_local \
   && pip install wllvm
 ENV LLVM_COMPILER=clang
   

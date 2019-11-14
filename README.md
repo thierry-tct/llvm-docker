@@ -16,7 +16,7 @@ docker run --rm -it thierrytct/llvm:<VERSION> /bin/bash
 2. Building the image locally
 Make the image
 ```
-git clone --recursive https://github.com/thierry-tct/llvm-docker.git llvm-docker
+git clone https://github.com/thierry-tct/llvm-docker.git llvm-docker
 docker build --tag thierrytct/llvm llvm-docker
 ```
 Run Docker container
