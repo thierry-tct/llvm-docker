@@ -14,7 +14,7 @@ docker run --rm -it thierrytct/llvm:<VERSION> /bin/bash
 ```
 
 2. Building the image locally
-Make the image
+Make the image (Optionally use `--build-arg <ARG>=<value>` to set llvm version...)
 ```
 git clone https://github.com/thierry-tct/llvm-docker.git llvm-docker
 docker build --tag thierrytct/llvm llvm-docker
