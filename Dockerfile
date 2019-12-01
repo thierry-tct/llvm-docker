@@ -15,11 +15,16 @@ RUN apt-get -y install cmake \
   && cd - \
   && ln -s $(which pip3) $(dirname $(which pip3))/pip \
   && apt-get -y install apache2 && apt-get -y install subversion \
-  && svn co http://llvm.org/svn/llvm-project/llvm/tags/${llvm_version_release}/final /tmp/${llvm_version_local}/src \
-  && svn co http://llvm.org/svn/llvm-project/cfe/tags/$llvm_version_release/final /tmp/$llvm_version_local/src/tools/clang \
-  && mkdir /tmp/$llvm_version_local/build && cd /tmp/$llvm_version_local/build \
-  && cmake /tmp/$llvm_version_local/src && make -j2 \
-  && make install && cd - && rm -rf /tmp/$llvm_version_local \
+  && svn co http://llvm.org/svn/llvm-project/llvm/tags/${llvm_version_release}/final /home/LLVM/${llvm_version_local}/src \
+  && svn co http://llvm.org/svn/llvm-project/cfe/tags/$llvm_version_release/final /home/LLVM/$llvm_version_local/src/tools/clang \
+  && mkdir /home/LLVM/$llvm_version_local/build_cmake && cd /home/LLVM/$llvm_version_local/build_cmake \
+  && cmake /home/LLVM/$llvm_version_local/src && make -j4 \
+  && make install && cd - && rm -rf /home/LLVM/$llvm_version_local/build_cmake \
+  && if test -f /home/LLVM/$llvm_version_local/src/configure; then mkdir /home/LLVM/$llvm_version_local/build_configure \
+    && cd /home/LLVM/$llvm_version_local/build_configure \
+    && /home/LLVM/$llvm_version_local/src/configure && make -j2 ; fi \
   && pip install wllvm
 ENV LLVM_COMPILER=clang
+
+
   
