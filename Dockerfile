@@ -20,7 +20,11 @@ RUN apt-get -y install cmake \
   && mkdir /home/LLVM/$llvm_version_local/build_cmake && cd /home/LLVM/$llvm_version_local/build_cmake \
   && CXXFLAGS='-g' cmake CMAKE_BUILD_TYPE=Debug /home/LLVM/$llvm_version_local/src && CXXFLAGS='-g' make -j4 \
   && make install && cd - && rm -rf /home/LLVM/$llvm_version_local/build_cmake \
-  && pip install wllvm
+  && pip install wllvm \
+  && if [ "$llvm_version_release" = "RELEASE_342" ]; then \
+        sed -i'' "s|/home/LLVM/$llvm_version_local/build_cmake/bin|$(dirname $(which clang))|g; s|/home/LLVM/$llvm_version_local/src/cmake/modules|/usr/local/share/llvm/cmake/|g" \
+		/usr/local/share/llvm/cmake/LLVMConfig.cmake ; \
+     fi
 ENV LLVM_COMPILER=clang
 
 
