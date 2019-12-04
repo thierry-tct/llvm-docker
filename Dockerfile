@@ -1,7 +1,6 @@
 #ARG gcc_version=gcc:4.9
 #ARG used_image=python
-ARG used_image=ubuntu:14.04
-#ARG used_image=ubuntu:18.04
+ARG used_image=ubuntu:18.04
 
 FROM $used_image
 
@@ -19,7 +18,7 @@ RUN apt-get -y install cmake \
   && svn co http://llvm.org/svn/llvm-project/llvm/tags/${llvm_version_release}/final /home/LLVM/${llvm_version_local}/src \
   && svn co http://llvm.org/svn/llvm-project/cfe/tags/$llvm_version_release/final /home/LLVM/$llvm_version_local/src/tools/clang \
   && mkdir /home/LLVM/$llvm_version_local/build_cmake && cd /home/LLVM/$llvm_version_local/build_cmake \
-  && cmake CMAKE_BUILD_TYPE=debug /home/LLVM/$llvm_version_local/src && make -j4 \
+  && CXXFLAGS='-g' cmake CMAKE_BUILD_TYPE=Debug /home/LLVM/$llvm_version_local/src && CXXFLAGS='-g' make -j4 \
   && make install && cd - && rm -rf /home/LLVM/$llvm_version_local/build_cmake \
   && pip install wllvm
 ENV LLVM_COMPILER=clang
