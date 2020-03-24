@@ -1,3 +1,7 @@
+##
+# sudo docker build --no-cache -t thierrytct/llvm:3.8.1 . --build-arg llvm_version_local=llvm-3.8.1 --build-arg llvm_version_release=RELEASE_381 && sudo docker push thierrytct/llvm:3.4.2
+##
+
 #ARG gcc_version=gcc:4.9
 #ARG used_image=python
 ARG used_image=ubuntu:18.04
