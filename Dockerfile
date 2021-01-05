@@ -18,7 +18,7 @@ RUN apt-get -y install cmake \
   && ln -s /usr/bin/python3 python \
   && cd - \
   && ln -s $(which pip3) $(dirname $(which pip3))/pip \
-  && apt-get -y install apache2
+  && apt-get -y install apache2 \
   && git clone -b tags/llvmorg-$llvm_version_local --depth 1 https://github.com/llvm/llvm-project /home/LLVM/llvm-${llvm_version_local}/src \
   && cp -r /home/LLVM/llvm-${llvm_version_local}/src/clang /home/LLVM/llvm-${llvm_version_local}/src/llvm/tools \
   && mkdir /home/LLVM/llvm-$llvm_version_local/build_cmake && cd /home/LLVM/llvm-$llvm_version_local/build_cmake \
