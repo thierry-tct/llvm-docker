@@ -49,6 +49,18 @@ else
     test -f $dft || error_exit "template missing"
     sed -i'' "s/{release}/$major/g; s/{version}/$llvm_version/g; s/{image}/$used_image/g" $dft || error_exit "sed failed"
     sed -i'' "/# Install dependencies/iENV DEBIAN_FRONTEND=noninteractive" $dft  # Avoid apt get install to ask for region and hang
+    
+    echo '
+    # Install useful
+    RUN apt-get -y install cmake \
+      && apt-get install -y python3-pip python3-dev \
+      && cd /usr/local/bin \
+      && ln -s /usr/bin/python3 python \
+      && cd - \
+      && ln -s $(which pip3) $(dirname $(which pip3))/pip \
+      && apt-get -y install apache2 git \
+      && pip install wllvm' > $dft
+    
     docker build --no-cache -t thierrytct/llvm:$llvm_version -f $dft . || error_exit "docker call failed (version is $llvm_version)"
     
     cd -
