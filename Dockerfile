@@ -22,7 +22,7 @@ RUN apt-get -y install cmake \
   && git clone -b llvmorg-$llvm_version_local --depth 1 https://github.com/llvm/llvm-project /home/LLVM/llvm-${llvm_version_local}/src \
   && cp -r /home/LLVM/llvm-${llvm_version_local}/src/clang /home/LLVM/llvm-${llvm_version_local}/src/llvm/tools \
   && mkdir /home/LLVM/llvm-$llvm_version_local/build_cmake && cd /home/LLVM/llvm-$llvm_version_local/build_cmake \
-  && CXXFLAGS='-g' cmake CMAKE_BUILD_TYPE=Debug /home/LLVM/llvm-$llvm_version_local/src/llvm && CXXFLAGS='-g' make -j4 \
+  && CXXFLAGS='-g' cmake -DCMAKE_BUILD_TYPE=Debug -DLLVM_TARGETS_TO_BUILD=Native /home/LLVM/llvm-$llvm_version_local/src/llvm && CXXFLAGS='-g' make -j4 \
   && make install && cd - && rm -rf /home/LLVM/llvm-$llvm_version_local/build_cmake \
   && pip install wllvm \
   && if [ "$llvm_version_local" = "3.4.2" ]; then \

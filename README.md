@@ -26,13 +26,14 @@ docker run --rm -it thierrytct/llvm /bin/bash
 
 ---
 ## Building for upload
-```
-docker build -t llvm:3.4.2 . --build-arg llvm_version_local=llvm-3.4.2 --build-arg llvm_version_release=RELEASE_342
-docker image tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
-```
-## Upload
+The recommended approach is to use the script `buildimage.sh` which can be ran by optionally specifyion the llvm version (e.g. 9.0.0) and the source image (e.g. ubuntu 20.04).
+Make sure to run as super user (sudo)
+Before that, make sure to login, using `sudo docker login` .
+
+All together:
+
 ```
 sudo docker login
 
-sudo docker push thierrytct/llvm:3.4.2
+sudo ./buildimage.sh [llvm version] [source image name]
 ```
