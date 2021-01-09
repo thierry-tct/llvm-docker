@@ -59,7 +59,7 @@ else
       && cd - \
       && ln -s $(which pip3) $(dirname $(which pip3))/pip \
       && apt-get -y install apache2 git \
-      && pip install wllvm' > $dft
+      && pip install wllvm' >> $dft
     
     docker build --no-cache -t thierrytct/llvm:$llvm_version -f $dft . || error_exit "docker call failed (version is $llvm_version)"
     
