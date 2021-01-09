@@ -52,6 +52,7 @@ else
     
     echo '
     # Install useful
+    RUN apt-get -y update; exit 0
     RUN apt-get -y install cmake \
       && apt-get install -y python3-pip python3-dev \
       && cd /usr/local/bin \
